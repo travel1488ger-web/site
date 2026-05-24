@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Первомайское Дзюдо</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#070b14;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(0,255,255,.15), transparent 25%),
+    radial-gradient(circle at 80% 30%, rgba(255,0,140,.15), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(0,255,170,.12), transparent 30%);
+    z-index:-2;
+}
+
+.particles{
+    position:fixed;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.particle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:rgba(0,255,255,.8);
+    animation:float linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh) scale(0);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(-20vh) scale(1);
+        opacity:0;
+    }
+}
+
+/* NAV */
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.25);
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+    font-weight:900;
+    font-size:22px;
+    letter-spacing:1px;
+    color:#00fff7;
+    text-shadow:0 0 15px #00fff7;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    transition:.3s;
+    font-weight:600;
+}
+
+nav a:hover{
+    color:#00fff7;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 60px;
+    position:relative;
+}
+
+.hero-content{
+    animation:fadeUp 1.2s ease;
+}
+
+.hero h1{
+    font-size:clamp(42px,8vw,110px);
+    font-weight:900;
+    line-height:1;
+    margin-bottom:20px;
+    text-transform:uppercase;
+    background:linear-gradient(90deg,#00fff7,#ff00a6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 25px rgba(0,255,255,.3);
+}
+
+.hero p{
+    font-size:clamp(18px,2vw,28px);
+    color:#d8d8d8;
+    margin-bottom:35px;
+}
+
+.hero-btn{
+    display:inline-block;
+    padding:18px 36px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:700;
+    background:linear-gradient(90deg,#00fff7,#ff00a6);
+    box-shadow:0 0 25px rgba(0,255,247,.5);
+    transition:.35s;
+}
+
+.hero-btn:hover{
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 0 40px rgba(255,0,166,.7);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* SECTION */
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    font-size:42px;
+    margin-bottom:40px;
+    font-weight:800;
+    text-align:center;
+    color:#00fff7;
+}
+
+/* ABOUT */
+
+.about{
+    max-width:1000px;
+    margin:auto;
+    text-align:center;
+}
+
+.about p{
+    font-size:20px;
+    line-height:1.9;
+    color:#ddd;
+}
+
+/* RULES */
+
+.rules-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.rule-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:28px;
+    transition:.35s;
+    position:relative;
+    overflow:hidden;
+    backdrop-filter:blur(10px);
+}
+
+.rule-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,rgba(0,255,247,.12),rgba(255,0,166,.1));
+    opacity:0;
+    transition:.3s;
+}
+
+.rule-card:hover::before{
+    opacity:1;
+}
+
+.rule-card:hover{
+    transform:translateY(-8px);
+    border-color:#00fff7;
+    box-shadow:0 0 30px rgba(0,255,247,.2);
+}
+
+.rule-icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.rule-card h3{
+    margin-bottom:12px;
+    font-size:24px;
+}
+
+.rule-card p{
+    color:#cfcfcf;
+    line-height:1.7;
+}
+
+/* SCORE TABLE */
+
+.score-table{
+    max-width:800px;
+    margin:auto;
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.score-row{
+    display:flex;
+    justify-content:space-between;
+    padding:22px 30px;
+    background:rgba(255,255,255,.04);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.score-row:nth-child(even){
+    background:rgba(255,255,255,.06);
+}
+
+.score-row span:last-child{
+    color:#00fff7;
+    font-weight:800;
+}
+
+/* SIMULATOR */
+
+.simulator{
+    text-align:center;
+}
+
+.sim-box{
+    max-width:650px;
+    margin:auto;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 0 35px rgba(0,255,255,.08);
+}
+
+.score{
+    font-size:72px;
+    font-weight:900;
+    margin:25px 0;
+    color:#00fff7;
+    text-shadow:0 0 20px rgba(0,255,255,.6);
+}
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+
+.action-btn{
+    border:none;
+    padding:18px 28px;
+    border-radius:18px;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    color:white;
+    background:linear-gradient(90deg,#00fff7,#ff00a6);
+}
+
+.action-btn:hover{
+    transform:translateY(-4px) scale(1.04);
+    box-shadow:0 0 30px rgba(255,0,166,.5);
+}
+
+.win{
+    margin-top:25px;
+    font-size:28px;
+    font-weight:800;
+    color:#00ff88;
+    opacity:0;
+    transform:scale(.5);
+    transition:.4s;
+}
+
+.win.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* GALLERY */
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.gallery-card{
+    height:280px;
+    border-radius:24px;
+    overflow:hidden;
+    position:relative;
+    cursor:pointer;
+    transition:.4s;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.gallery-card:hover{
+    transform:translateY(-8px) scale(1.02);
+}
+
+.gallery-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.gallery-card:hover img{
+    transform:scale(1.08);
+}
+
+.gallery-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.9),transparent);
+    display:flex;
+    align-items:flex-end;
+    padding:20px;
+    font-weight:700;
+    font-size:20px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:45px 20px;
+    color:#aaa;
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:50px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    nav{
+        padding:18px 5%;
+    }
+
+    .hero{
+        padding-top:150px;
+    }
+
+    .section-title{
+        font-size:32px;
+    }
+
+    .score{
+        font-size:54px;
+    }
+
+    .score-row{
+        padding:18px;
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+
+
+<body>
+
+<div class="particles" id="particles"></div>
+
+<nav>
+    <div class="logo">ПЕРВОМАЙСКОЕ ДЗЮДО</div>
+
+    <div>
+        <a href="#about">О спорте</a>
+        <a href="#rules">Правила</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>ПЕРВОМАЙСКОЕ ДЗЮДО</h1>
+        <p>Самый легендарный Первомайский спорт</p>
+
+        <a href="#rules" class="hero-btn">Изучить правила</a>
+    </div>
+</section>
+
+<section id="about">
+    <h2 class="section-title">Что это такое?</h2>
+
+    <div class="about">
+        <p>
+            Первомайское дзюдо — вид спорта,
+            где игроки пытаются набрать очки с помощью шлепков, трохания и
+            зрелищных захватов. Главное — веселье, безопасность и атмосфера ПМК.
+        </p>
+    </div>
+</section>
+
+<section id="rules">
+    <h2 class="section-title">Правила</h2>
+
+    <div class="rules-grid">
+
+        <div class="rule-card">
+            <div class="rule-icon">🥋</div>
+            <h3>Цель игры</h3>
+            <p>
+                Набрать 7 очков раньше соперника и стать легендой Первомайки.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-icon">🖐️</div>
+            <h3>Шлепок ладонью</h3>
+            <p>
+                За точный шлепок ладонью по заднице соперника, игрок получает 1 очко.
+                Кулаки запрещены.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-icon">⏱️</div>
+            <h3>Задний привод</h3>
+            <p>
+                Повалить соперника на землю и "трохать" его,
+                за каждую секунду удержания начисляется 0.5 очка.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-icon">🚫</div>
+            <h3>Запрещено</h3>
+            <p>
+                Кулаки, пинки, болевые, удушения и любые травмоопасные действия.
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-icon">🏆</div>
+            <h3>Победа</h3>
+            <p>
+                Побеждает игрок, первым набравший 7 очков
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== ПОЯСА ===== -->
+
+<section id="belts">
+    <h2 class="section-title">Пояса и ранги</h2>
+
+    <div class="belts-grid">
+
+        <div class="belt-card bronze">
+            <div class="belt-top">
+                <div class="belt-icon">🌾</div>
+                <div class="belt-name">Колосянин</div>
+            </div>
+
+            <div class="belt-range">0–10 побед</div>
+
+            <p>
+                Особый пояс для настоящих жителей Колоса.
+                Получают только колосяне.
+            </p>
+        </div>
+
+        <div class="belt-card green">
+            <div class="belt-top">
+                <div class="belt-icon">🍇</div>
+                <div class="belt-name">Молдованин</div>
+            </div>
+
+            <div class="belt-range">0–10 побед</div>
+
+            <p>
+                Ранг для бойцов-молдован.
+                Настоящая школа дворовой техники.
+            </p>
+        </div>
+
+        <div class="belt-card blue">
+            <div class="belt-top">
+                <div class="belt-icon">🏙️</div>
+                <div class="belt-name">Первомаец</div>
+            </div>
+
+            <div class="belt-range">10 побед</div>
+
+            <p>
+                Базовый пояс жителей Первомайки.
+                Хуторянин должен выиграть 10 боев.
+            </p>
+        </div>
+
+        <div class="belt-card purple">
+            <div class="belt-top">
+                <div class="belt-icon">💸</div>
+                <div class="belt-name">Почти богач</div>
+            </div>
+
+            <div class="belt-range">10–15 побед</div>
+
+            <p>
+                Игрок начинает подниматься
+                к элите дворового дзюдо.
+            </p>
+        </div>
+
+        <div class="belt-card gold">
+            <div class="belt-top">
+                <div class="belt-icon">👑</div>
+                <div class="belt-name">Богач</div>
+            </div>
+
+            <div class="belt-range">15–20 побед</div>
+
+            <p>
+                Доступно только коренным жителям Первомайки.
+            </p>
+        </div>
+
+        <div class="belt-card red">
+            <div class="belt-top">
+                <div class="belt-icon">🔥</div>
+                <div class="belt-name">Истинный богач</div>
+            </div>
+
+            <div class="belt-range">20–30 побед</div>
+
+            <p>
+                Легендарный статус для самых опасных бойцов района.
+            </p>
+        </div>
+
+        <div class="belt-card rainbow">
+            <div class="belt-top">
+                <div class="belt-icon">❄️</div>
+                <div class="belt-name">
+                    Истинный богач с кондиционером который так хорошо охлаждает в жару
+                </div>
+            </div>
+
+            <div class="belt-range">30–40 побед</div>
+
+            <p>
+                Абсолютная вершина Первомайского дзюдо.
+                Холодный как кондиционер. Опасный как финал турнира.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<style>
+
+/* ===== ПОЯСА ===== */
+
+.belts-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:28px;
+    margin-top:50px;
+}
+
+.belt-card{
+    position:relative;
+    overflow:hidden;
+    padding:30px;
+    border-radius:28px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    transition:.35s;
+}
+
+.belt-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.18;
+    transition:.35s;
+}
+
+.belt-card:hover{
+    transform:translateY(-10px) scale(1.02);
+}
+
+.belt-card:hover::before{
+    opacity:.35;
+}
+
+.belt-top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.belt-icon{
+    font-size:42px;
+}
+
+.belt-name{
+    font-size:24px;
+    font-weight:800;
+    line-height:1.2;
+}
+
+.belt-range{
+    display:inline-block;
+    padding:10px 16px;
+    border-radius:999px;
+    margin-bottom:18px;
+    font-weight:700;
+    font-size:14px;
+    background:rgba(255,255,255,.08);
+}
+
+.belt-card p{
+    color:#d6d6d6;
+    line-height:1.7;
+}
+
+/* COLORS */
+
+.bronze{
+    box-shadow:0 0 30px rgba(196,122,49,.18);
+}
+
+.bronze::before{
+    background:linear-gradient(135deg,#c47a31,#ffb56a);
+}
+
+.green{
+    box-shadow:0 0 30px rgba(0,255,120,.18);
+}
+
+.green::before{
+    background:linear-gradient(135deg,#00ff99,#00cc66);
+}
+
+.blue{
+    box-shadow:0 0 30px rgba(0,180,255,.18);
+}
+
+.blue::before{
+    background:linear-gradient(135deg,#00bfff,#005eff);
+}
+
+.purple{
+    box-shadow:0 0 30px rgba(183,0,255,.2);
+}
+
+.purple::before{
+    background:linear-gradient(135deg,#b700ff,#ff00a6);
+}
+
+.gold{
+    box-shadow:0 0 35px rgba(255,200,0,.25);
+}
+
+.gold::before{
+    background:linear-gradient(135deg,#ffd500,#ff9900);
+}
+
+.red{
+    box-shadow:0 0 35px rgba(255,60,60,.25);
+}
+
+.red::before{
+    background:linear-gradient(135deg,#ff3c3c,#ff0066);
+}
+
+.rainbow{
+    box-shadow:0 0 45px rgba(0,255,255,.25);
+}
+
+.rainbow::before{
+    background:
+    linear-gradient(
+        135deg,
+        #00fff7,
+        #00a2ff,
+        #8a2eff,
+        #ff00a6,
+        #ffe600
+    );
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .belt-name{
+        font-size:20px;
+    }
+
+    .belt-card{
+        padding:24px;
+    }
+}
+
+</style>
+
+<section>
+    <h2 class="section-title">Таблица очков</h2>
+
+    <div class="score-table">
+
+        <div class="score-row">
+            <span>Шлепок</span>
+            <span>1 очко</span>
+        </div>
+
+        <div class="score-row">
+            <span>Трохание</span>
+            <span>0.5 очка / сек</span>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <h2 class="section-title">Галерея</h2>
+
+    <div class="gallery-grid">
+
+        <div class="gallery-card">
+            <img src="" alt="чо не грузит лох хуторской?">
+            <div class="gallery-overlay">
+                Первомайский турнир
+            </div>
+        </div>
+
+        <div class="gallery-card">
+            <img src="images/sensei.jpg" alt="чо не грузит лох хуторской?">
+            <div class="gallery-overlay">
+                Великий предводитель
+            </div>
+        </div>
+
+        <div class="gallery-card">
+            <img src="" alt="чо не грузит лох хуторской?">
+            <div class="gallery-overlay">
+                Атмосфера ПМК
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    Первомайское дзюдо — спорт настоящих легенд Первомайки!
+</footer>
+
+<script>
+/* PARTICLES */
+
+const particlesContainer = document.getElementById("particles");
+
+for(let i = 0; i < 60; i++){
+
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
+
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.animationDuration = (6 + Math.random() * 10) + "s";
+    particle.style.animationDelay = Math.random() * 5 + "s";
+
+    const size = 3 + Math.random() * 6;
+
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    particlesContainer.appendChild(particle);
+}
+
+/* SIMULATOR */
+
+let score = 0;
+
+const scoreEl = document.getElementById("score");
+const winText = document.getElementById("winText");
+
+document.getElementById("slapBtn").addEventListener("click", () => {
+    addPoints(1);
+});
+
+document.getElementById("holdBtn").addEventListener("click", () => {
+    addPoints(0.5);
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+    score = 0;
+    scoreEl.textContent = score;
+    winText.classList.remove("show");
+});
+
+function addPoints(points){
+
+    score += points;
+
+    if(score % 1 !== 0){
+        score = score.toFixed(1);
+    }
+
+    scoreEl.textContent = score;
+
+    scoreEl.animate([
+        { transform:"scale(1)" },
+        { transform:"scale(1.2)" },
+        { transform:"scale(1)" }
+    ],{
+        duration:300
+    });
+
+    if(parseFloat(score) >= 7){
+        winText.classList.add("show");
+
+        document.body.animate([
+            { filter:"brightness(1)" },
+            { filter:"brightness(1.3)" },
+            { filter:"brightness(1)" }
+        ],{
+            duration:700
+        });
+    }
+}
+</script>
+
+</body>
+</html>
